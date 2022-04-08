@@ -1,75 +1,474 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0 (Python 3.9.7 on win32)" generated="20220406 02:06:07.455" rpa="false" schemaversion="3">
-<suite id="s1" name="TC 005 Governor UI" source="C:\Users\10059758\PycharmProjects\OPPENHEIMER\TestCases\TC_005_Governor_UI.robot">
-<test id="s1-t1" name="TC005 Governor UI" line="9">
-<kw name="Start Browser" library="Common">
-<kw name="Open Browser" library="SeleniumLibrary">
-<arg>http://localhost:8080/</arg>
-<arg>Chrome</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20220406 02:06:07.767" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:8080/'.</msg>
-<status status="PASS" starttime="20220406 02:06:07.767" endtime="20220406 02:06:13.123"/>
+<robot generator="Robot 5.0 (Python 3.9.7 on win32)" generated="20220408 23:35:49.371" rpa="false" schemaversion="3">
+<suite id="s1" name="TC 004 Retrieve Tax Relief" source="C:\Users\10059758\PycharmProjects\OPPENHEIMER\TestCases\TC_004_Retrieve_Tax_Relief.robot">
+<test id="s1-t1" name="TC_004 Retrieve Tax Relief Record" line="14">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>Get Tax Relief Details</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220408 23:35:49.715" level="INFO">Creating Session using : alias=Get Tax Relief Details, url=http://localhost:8080/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220408 23:35:49.715" endtime="20220408 23:35:49.715"/>
 </kw>
-<kw name="Maximize Browser Window" library="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" starttime="20220406 02:06:13.124" endtime="20220406 02:06:13.255"/>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>Get Tax Relief Details</arg>
+<arg>calculator/taxRelief</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220408 23:35:49.747" level="INFO">GET Request : url=http://localhost:8080/calculator/taxRelief 
+ path_url=/calculator/taxRelief 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20220408 23:35:49.747" level="INFO">GET Response : url=http://localhost:8080/calculator/taxRelief 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Fri, 08 Apr 2022 15:35:49 GMT'} 
+ body=[{"natid":"RE98$$$$$$$$","name":"Mary Chia","relief":"3410.00"},{"natid":"UKG5$$$$$$$$$","name":"Peter Liu","relief":"16206.72"},{"natid":"YKG8$$$$$$$$$","name":"Anna Wee","relief":"544926.89"},{"natid":"ILH9$$$$$$$$$","name":"Aaron Quek","relief":"389285.00"},{"natid":"GYU6$$$$$$$$$","name":"Tan Kah Kee","relief":"70176.81"},{"natid":"GIB9$$$$$$$$$","name":"Albert Khoo","relief":"23772.00"},{"natid":"JLL3$$$$$$$$$","name":"Winnie Wang","relief":"42445.00"},{"natid":"456E$$$$$$$","name":"Karen Koh","relief":"5430.00"},{"natid":"RE98$$$$$$$$","name":"Mary Chia","relief":"3410.00"},{"natid":"UKG5$$$$$$$$$","name":"Peter Liu","relief":"16206.72"},{"natid":"YKG8$$$$$$$$$","name":"Anna Wee","relief":"544926.89"},{"natid":"ILH9$$$$$$$$$","name":"Aaron Quek","relief":"389285.00"},{"natid":"GYU6$$$$$$$$$","name":"Tan Kah Kee","relief":"70176.81"},{"natid":"GIB9$$$$$$$$$","name":"Albert Khoo","relief":"23772.00"},{"natid":"JLL3$$$$$$$$$","name":"Winnie Wang","relief":"42445.00"},{"natid":"456E$$$$$$$","name":"Karen Koh","relief":"5430.00"}] 
+ </msg>
+<msg timestamp="20220408 23:35:49.748" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220408 23:35:49.716" endtime="20220408 23:35:49.748"/>
 </kw>
-<status status="PASS" starttime="20220406 02:06:07.766" endtime="20220406 02:06:13.255"/>
+<kw name="Request Should Be Successful" library="RequestsLibrary">
+<arg>${response}</arg>
+<doc>Fails if response status code is a client or server error (4xx, 5xx).</doc>
+<status status="PASS" starttime="20220408 23:35:49.748" endtime="20220408 23:35:49.749"/>
 </kw>
-<kw name="Page Should Contain Element" library="SeleniumLibrary">
-<arg>xpath=//a[text()='Dispense Now']</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<msg timestamp="20220406 02:06:13.272" level="INFO">Current page contains element 'xpath=//a[text()='Dispense Now']'.</msg>
-<status status="PASS" starttime="20220406 02:06:13.255" endtime="20220406 02:06:13.272"/>
+<kw name="Set Variable" library="BuiltIn">
+<var>${json_data}</var>
+<arg>${response.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220408 23:35:49.750" level="INFO">${json_data} = [{'natid': 'RE98$$$$$$$$', 'name': 'Mary Chia', 'relief': '3410.00'}, {'natid': 'UKG5$$$$$$$$$', 'name': 'Peter Liu', 'relief': '16206.72'}, {'natid': 'YKG8$$$$$$$$$', 'name': 'Anna Wee', 'relief': '5...</msg>
+<status status="PASS" starttime="20220408 23:35:49.749" endtime="20220408 23:35:49.751"/>
 </kw>
-<kw name="Get Element Attribute" library="SeleniumLibrary">
-<var>${url}</var>
-<arg>xpath=//a[text()='Dispense Now']</arg>
-<arg>href</arg>
-<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
-<msg timestamp="20220406 02:06:13.302" level="INFO">${url} = http://localhost:8080/dispense</msg>
-<status status="PASS" starttime="20220406 02:06:13.272" endtime="20220406 02:06:13.302"/>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>@{natid_[0]}</var>
+<arg>${json_data}</arg>
+<arg>$.[0].natid</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220408 23:35:49.783" level="INFO">@{natid_[0]} = [ RE98$$$$$$$$ ]</msg>
+<status status="PASS" starttime="20220408 23:35:49.751" endtime="20220408 23:35:49.783"/>
 </kw>
-<kw name="Should Be Equal" library="BuiltIn">
-<arg>${url}</arg>
-<arg>${dispense_url}</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" starttime="20220406 02:06:13.302" endtime="20220406 02:06:13.303"/>
+<kw name="Log To Console" library="BuiltIn">
+<arg>natid ${natid_[0]}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.784" endtime="20220408 23:35:49.786"/>
 </kw>
-<kw name="Click Element" library="SeleniumLibrary">
-<arg>xpath://a[text()='Dispense Now']</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<msg timestamp="20220406 02:06:13.303" level="INFO">Clicking element 'xpath://a[text()='Dispense Now']'.</msg>
-<status status="PASS" starttime="20220406 02:06:13.303" endtime="20220406 02:06:13.679"/>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${natid_[0]}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20220408 23:35:49.786" level="INFO">Length is 1</msg>
+<status status="PASS" starttime="20220408 23:35:49.786" endtime="20220408 23:35:49.786"/>
 </kw>
-<kw name="Page Should Contain" library="SeleniumLibrary">
-<arg>Cash dispensed</arg>
-<doc>Verifies that current page contains ``text``.</doc>
-<msg timestamp="20220406 02:06:13.694" level="INFO">Current page contains text 'Cash dispensed'.</msg>
-<status status="PASS" starttime="20220406 02:06:13.679" endtime="20220406 02:06:13.694"/>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>@{relief_[0]}</var>
+<arg>${json_data}</arg>
+<arg>$.[0].relief</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220408 23:35:49.811" level="INFO">@{relief_[0]} = [ 3410.00 ]</msg>
+<status status="PASS" starttime="20220408 23:35:49.787" endtime="20220408 23:35:49.811"/>
 </kw>
-<kw name="Sleep" library="BuiltIn">
-<arg>3</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<msg timestamp="20220406 02:06:16.697" level="INFO">Slept 3 seconds</msg>
-<status status="PASS" starttime="20220406 02:06:13.695" endtime="20220406 02:06:16.697"/>
+<kw name="Log To Console" library="BuiltIn">
+<arg>relief ${relief_[0]}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.811" endtime="20220408 23:35:49.812"/>
 </kw>
-<kw name="Close Browser" library="SeleniumLibrary">
-<doc>Closes the current browser.</doc>
-<status status="PASS" starttime="20220406 02:06:16.697" endtime="20220406 02:06:19.619"/>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${relief_[0]}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20220408 23:35:49.813" level="INFO">Length is 1</msg>
+<status status="PASS" starttime="20220408 23:35:49.813" endtime="20220408 23:35:49.813"/>
 </kw>
-<status status="PASS" starttime="20220406 02:06:07.766" endtime="20220406 02:06:19.620"/>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>@{name_[0]}</var>
+<arg>${json_data}</arg>
+<arg>$.[0].name</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220408 23:35:49.838" level="INFO">@{name_[0]} = [ Mary Chia ]</msg>
+<status status="PASS" starttime="20220408 23:35:49.814" endtime="20220408 23:35:49.838"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>name ${name_[0]}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.839" endtime="20220408 23:35:49.839"/>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${name_[0]}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20220408 23:35:49.840" level="INFO">Length is 1</msg>
+<status status="PASS" starttime="20220408 23:35:49.840" endtime="20220408 23:35:49.840"/>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<var>@{tax_[0]}</var>
+<arg>${json_data}</arg>
+<arg>$.[0].tax</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<msg timestamp="20220408 23:35:49.864" level="INFO">@{tax_[0]} = [ ]</msg>
+<status status="PASS" starttime="20220408 23:35:49.841" endtime="20220408 23:35:49.864"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>tax ${tax_[0]}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.865" endtime="20220408 23:35:49.866"/>
+</kw>
+<kw name="Should Be Empty" library="BuiltIn">
+<arg>${tax_[0]}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<msg timestamp="20220408 23:35:49.867" level="INFO">Length is 0</msg>
+<status status="PASS" starttime="20220408 23:35:49.867" endtime="20220408 23:35:49.867"/>
+</kw>
+<kw name="Convert JSON To String" library="JSONLibrary">
+<var>${natid_field}</var>
+<arg>${natid_[0]}</arg>
+<doc>Convert JSON object to string</doc>
+<msg timestamp="20220408 23:35:49.868" level="INFO">${natid_field} = ["RE98$$$$$$$$"]</msg>
+<status status="PASS" starttime="20220408 23:35:49.868" endtime="20220408 23:35:49.868"/>
+</kw>
+<kw name="Get Substring" library="String">
+<var>${natid_object}</var>
+<arg>${natid_field}</arg>
+<arg>2</arg>
+<arg>-2</arg>
+<doc>Returns a substring from ``start`` index to ``end`` index.</doc>
+<msg timestamp="20220408 23:35:49.870" level="INFO">${natid_object} = RE98$$$$$$$$</msg>
+<status status="PASS" starttime="20220408 23:35:49.869" endtime="20220408 23:35:49.870"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>natid_object ${natid_object}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.870" endtime="20220408 23:35:49.871"/>
+</kw>
+<kw name="Should Match Regexp" library="BuiltIn">
+<arg>${natid_object}</arg>
+<arg>\\d\\d\\d-\|\\d\\W</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" starttime="20220408 23:35:49.871" endtime="20220408 23:35:49.872"/>
+</kw>
+<kw name="Get Substring" library="String">
+<var>${natid_string}</var>
+<arg>${natid_object}</arg>
+<arg>4</arg>
+<doc>Returns a substring from ``start`` index to ``end`` index.</doc>
+<msg timestamp="20220408 23:35:49.873" level="INFO">${natid_string} = $$$$$$$$</msg>
+<status status="PASS" starttime="20220408 23:35:49.872" endtime="20220408 23:35:49.873"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>natid_string ${natid_string}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.873" endtime="20220408 23:35:49.874"/>
+</kw>
+<kw name="Should Start With" library="BuiltIn">
+<arg>${natid_string}</arg>
+<arg>$</arg>
+<doc>Fails if the string ``str1`` does not start with the string ``str2``.</doc>
+<status status="PASS" starttime="20220408 23:35:49.874" endtime="20220408 23:35:49.875"/>
+</kw>
+<kw name="Should End With" library="BuiltIn">
+<arg>${natid_string}</arg>
+<arg>$</arg>
+<doc>Fails if the string ``str1`` does not end with the string ``str2``.</doc>
+<status status="PASS" starttime="20220408 23:35:49.875" endtime="20220408 23:35:49.875"/>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<var>${file}</var>
+<arg>C:/Users/10059758/PycharmProjects/OPPENHEIMER/TestData/WorkingClassHeroData.csv</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20220408 23:35:49.876" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\10059758\PycharmProjects\OPPENHEIMER\TestData\WorkingClassHeroData.csv"&gt;C:\Users\10059758\PycharmProjects\OPPENHEIMER\TestData\WorkingClassHeroData.csv&lt;/a&gt;'.</msg>
+<msg timestamp="20220408 23:35:49.879" level="INFO">${file} = natid,name,gender,salary,birthday,taxRE9876543210,Mary Chia,F,8400,24021954,470UKG5548613284,Peter Liu,M,45000,15071961,840YKG8946513684,Anna Wee,F,1500000,05121970,16548ILH9845616843,Aaron Quek,M...</msg>
+<status status="PASS" starttime="20220408 23:35:49.876" endtime="20220408 23:35:49.879"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>@{list}</var>
+<arg>${file}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.879" level="INFO">9 lines returned</msg>
+<msg timestamp="20220408 23:35:49.880" level="INFO">@{list} = [ natid,name,gender,salary,birthday,tax | RE9876543210,Mary Chia,F,8400,24021954,470 | UKG5548613284,Peter Liu,M,45000,15071961,840 | YKG8946513684,Anna Wee,F,1500000,05121970,16548 | ILH9845616843,Aa...</msg>
+<status status="PASS" starttime="20220408 23:35:49.879" endtime="20220408 23:35:49.880"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>read_csv ${list}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.881" endtime="20220408 23:35:49.881"/>
+</kw>
+<for flavor="IN">
+<var>${row}</var>
+<value>@{list}</value>
+<iter>
+<var name="${row}">natid,name,gender,salary,birthday,tax</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.884" endtime="20220408 23:35:49.885"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.885" level="INFO">${info} = natid,name,gender,salary,birthday,tax</msg>
+<status status="PASS" starttime="20220408 23:35:49.885" endtime="20220408 23:35:49.885"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.886" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.886" level="INFO">${replace} = ['natid,name,gender,salary,birthday,tax']</msg>
+<status status="PASS" starttime="20220408 23:35:49.886" endtime="20220408 23:35:49.886"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.886" endtime="20220408 23:35:49.886"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.884" endtime="20220408 23:35:49.886"/>
+</iter>
+<iter>
+<var name="${row}">RE9876543210,Mary Chia,F,8400,24021954,470</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.887" endtime="20220408 23:35:49.887"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.888" level="INFO">${info} = RE9876543210,Mary Chia,F,8400,24021954,470</msg>
+<status status="PASS" starttime="20220408 23:35:49.887" endtime="20220408 23:35:49.888"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.888" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.888" level="INFO">${replace} = ['RE9876543210,Mary Chia,F,8400,24021954,470']</msg>
+<status status="PASS" starttime="20220408 23:35:49.888" endtime="20220408 23:35:49.888"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.888" endtime="20220408 23:35:49.889"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.887" endtime="20220408 23:35:49.889"/>
+</iter>
+<iter>
+<var name="${row}">UKG5548613284,Peter Liu,M,45000,15071961,840</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.889" endtime="20220408 23:35:49.889"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.890" level="INFO">${info} = UKG5548613284,Peter Liu,M,45000,15071961,840</msg>
+<status status="PASS" starttime="20220408 23:35:49.889" endtime="20220408 23:35:49.890"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.890" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.890" level="INFO">${replace} = ['UKG5548613284,Peter Liu,M,45000,15071961,840']</msg>
+<status status="PASS" starttime="20220408 23:35:49.890" endtime="20220408 23:35:49.890"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.890" endtime="20220408 23:35:49.891"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.889" endtime="20220408 23:35:49.891"/>
+</iter>
+<iter>
+<var name="${row}">YKG8946513684,Anna Wee,F,1500000,05121970,16548</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.891" endtime="20220408 23:35:49.891"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.892" level="INFO">${info} = YKG8946513684,Anna Wee,F,1500000,05121970,16548</msg>
+<status status="PASS" starttime="20220408 23:35:49.891" endtime="20220408 23:35:49.892"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.893" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.893" level="INFO">${replace} = ['YKG8946513684,Anna Wee,F,1500000,05121970,16548']</msg>
+<status status="PASS" starttime="20220408 23:35:49.892" endtime="20220408 23:35:49.893"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.893" endtime="20220408 23:35:49.893"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.891" endtime="20220408 23:35:49.893"/>
+</iter>
+<iter>
+<var name="${row}">ILH9845616843,Aaron Quek,M,784056,08051977,5486</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.894" endtime="20220408 23:35:49.894"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.895" level="INFO">${info} = ILH9845616843,Aaron Quek,M,784056,08051977,5486</msg>
+<status status="PASS" starttime="20220408 23:35:49.894" endtime="20220408 23:35:49.895"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.895" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.895" level="INFO">${replace} = ['ILH9845616843,Aaron Quek,M,784056,08051977,5486']</msg>
+<status status="PASS" starttime="20220408 23:35:49.895" endtime="20220408 23:35:49.895"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.895" endtime="20220408 23:35:49.896"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.893" endtime="20220408 23:35:49.896"/>
+</iter>
+<iter>
+<var name="${row}">GYU6868493218,Tan Kah Kee,M,88510,31031987,789</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.896" endtime="20220408 23:35:49.897"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.897" level="INFO">${info} = GYU6868493218,Tan Kah Kee,M,88510,31031987,789</msg>
+<status status="PASS" starttime="20220408 23:35:49.897" endtime="20220408 23:35:49.897"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.898" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.898" level="INFO">${replace} = ['GYU6868493218,Tan Kah Kee,M,88510,31031987,789']</msg>
+<status status="PASS" starttime="20220408 23:35:49.898" endtime="20220408 23:35:49.898"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.898" endtime="20220408 23:35:49.898"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.896" endtime="20220408 23:35:49.898"/>
+</iter>
+<iter>
+<var name="${row}">GIB9874313214,Albert Khoo,M,64980,19111968,206</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.899" endtime="20220408 23:35:49.899"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.900" level="INFO">${info} = GIB9874313214,Albert Khoo,M,64980,19111968,206</msg>
+<status status="PASS" starttime="20220408 23:35:49.900" endtime="20220408 23:35:49.900"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.901" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.901" level="INFO">${replace} = ['GIB9874313214,Albert Khoo,M,64980,19111968,206']</msg>
+<status status="PASS" starttime="20220408 23:35:49.901" endtime="20220408 23:35:49.901"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.902" endtime="20220408 23:35:49.902"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.899" endtime="20220408 23:35:49.902"/>
+</iter>
+<iter>
+<var name="${row}">JLL35SA458436,Winnie Wang,F,84606,28041982,716</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.903" endtime="20220408 23:35:49.904"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:49.904" level="INFO">${info} = JLL35SA458436,Winnie Wang,F,84606,28041982,716</msg>
+<status status="PASS" starttime="20220408 23:35:49.904" endtime="20220408 23:35:49.904"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:49.904" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:49.905" level="INFO">${replace} = ['JLL35SA458436,Winnie Wang,F,84606,28041982,716']</msg>
+<status status="PASS" starttime="20220408 23:35:49.904" endtime="20220408 23:35:49.905"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:49.905" endtime="20220408 23:35:50.038"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:49.902" endtime="20220408 23:35:50.038"/>
+</iter>
+<iter>
+<var name="${row}">456ET563E18,Karen Koh,F,5000,01082005,70</var>
+<kw name="Log To Console" library="BuiltIn">
+<arg>row ${row}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:50.039" endtime="20220408 23:35:50.039"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${info}</var>
+<arg>${row}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20220408 23:35:50.040" level="INFO">${info} = 456ET563E18,Karen Koh,F,5000,01082005,70</msg>
+<status status="PASS" starttime="20220408 23:35:50.039" endtime="20220408 23:35:50.040"/>
+</kw>
+<kw name="Split To Lines" library="String">
+<var>${replace}</var>
+<arg>${info}</arg>
+<doc>Splits the given string to lines.</doc>
+<msg timestamp="20220408 23:35:50.040" level="INFO">1 lines returned</msg>
+<msg timestamp="20220408 23:35:50.040" level="INFO">${replace} = ['456ET563E18,Karen Koh,F,5000,01082005,70']</msg>
+<status status="PASS" starttime="20220408 23:35:50.040" endtime="20220408 23:35:50.040"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>replace ${replace}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220408 23:35:50.040" endtime="20220408 23:35:50.041"/>
+</kw>
+<status status="PASS" starttime="20220408 23:35:50.039" endtime="20220408 23:35:50.041"/>
+</iter>
+<status status="PASS" starttime="20220408 23:35:49.884" endtime="20220408 23:35:50.041"/>
+</for>
+<tag>smoke</tag>
+<status status="PASS" starttime="20220408 23:35:49.714" endtime="20220408 23:35:50.041"/>
 </test>
-<status status="PASS" starttime="20220406 02:06:07.459" endtime="20220406 02:06:19.625"/>
+<status status="PASS" starttime="20220408 23:35:49.374" endtime="20220408 23:35:50.043"/>
 </suite>
 <statistics>
 <total>
 <stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
+<stat pass="1" fail="0" skip="0">smoke</stat>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="TC 005 Governor UI">TC 005 Governor UI</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="TC 004 Retrieve Tax Relief">TC 004 Retrieve Tax Relief</stat>
 </suite>
 </statistics>
 <errors>

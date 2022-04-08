@@ -1,5 +1,6 @@
 *** Settings ***
 Library     SeleniumLibrary
+Library           Selenium2LibraryExtension
 Resource    ../Resources/Common.robot
 
 *** Variables ***
@@ -10,6 +11,11 @@ TC005 Governor UI
 
     Start Browser
     #AC1: Verify button color and text
+    #${style}=   Get Element Attribute   css==a.btn.btn-danger   style
+    #Log To Console  Style ${style}
+
+    @{background_color}=  Element Background Color Should Be    id=.btn-danger    rgba(220, 53, 69, 1)
+    Log To Console  background_color ${background_color}
 
     #AC2: Check Dispense Now button
     Page Should Contain Element     xpath=//a[text()='Dispense Now']
@@ -21,4 +27,4 @@ TC005 Governor UI
     Page Should Contain     Cash dispensed
     Sleep   3
 
-    Close Browser
+    #Close Browser

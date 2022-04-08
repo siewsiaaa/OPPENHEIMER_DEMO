@@ -9,7 +9,7 @@ ${base_url}     http://localhost:8080/
 
 *** Test Cases ***
 TC_002 Insert Multiple Records
-    [Tags]  smoke
+    [Tags]  api
 
     Create Session      AddData     ${base_url}
     ${wch1}=            Create Dictionary   birthday=24021954   gender=F    name=Mary Chia   natid=9876543210    salary=8400   tax=470
@@ -19,7 +19,9 @@ TC_002 Insert Multiple Records
     ${header}=          Create Dictionary   Content-Type=application/json    accept=*/*
     ${response}=        Post On Session     AddData     /calculator/insertMultiple    data=${body}    headers=${header}
 
-    ${actual_code}=         convert to string   ${response.status_code}
-    should be equal         ${actual_code}      202         #undocumented server response
-    ${actual_content}=      convert to string   ${response.content}
-    should be equal         ${actual_content}   Alright     #undocumented
+    #Verify Response Code 202
+    Request Should Be Successful    ${response}
+    #${actual_code}=         convert to string   ${response.status_code}
+    #should be equal         ${actual_code}      202         #undocumented server response
+    #${actual_content}=      convert to string   ${response.content}
+    #should be equal         ${actual_content}   Alright     #undocumented

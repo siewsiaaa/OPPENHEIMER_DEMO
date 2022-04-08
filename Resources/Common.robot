@@ -3,9 +3,11 @@
 Library  SeleniumLibrary
 
 *** Variables ***
-
+${server}   localhost:8080
+${browser}  Chrome
+${url}      http://${server}/
 
 *** Keywords ***
 Start Browser
-    Open Browser  http://localhost:8080/  Chrome
+    Open Browser  ${url}  ${browser}
     Maximize Browser Window
